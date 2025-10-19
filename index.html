@@ -1,34 +1,182 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>QAConsul</title>
+  <title>QAConsul - AI-Powered Quality Assurance</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-</head>
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
-<style>
-body,h1 {font-family: "Raleway", sans-serif}
-body, html {height: 100%}
-.bgimg {
-  background-image: url('https://www.w3schools.com/w3images/forestbridge.jpg');
-  min-height: 100%;
-  background-position: center;
-  background-size: cover;
-}
-</style>
-
+  <style>
+    body, h1, h2, h3 {font-family: "Raleway", sans-serif}
+    body, html {height: 100%; scroll-behavior: smooth; background: #f5f5f5;}
+    
+    .hero-section {
+      background: linear-gradient(135deg, #1a1a1a 0%, #000000 100%);
+      color: white;
+      padding: 100px 0;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .hero-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120"><path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" opacity=".1" fill="%23ffffff"></path></svg>') no-repeat bottom;
+      background-size: cover;
+      opacity: 0.1;
+    }
+    
+    .navbar {
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      background: #000000 !important;
+    }
+    
+    .service-card {
+      border: 2px solid #e0e0e0;
+      border-radius: 15px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+      height: 100%;
+      background: #ffffff;
+    }
+    
+    .service-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+      border-color: #000000;
+    }
+    
+    .service-icon {
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+      filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.1));
+    }
+    
+    .testing-level {
+      background: #f8f9fa;
+      border-left: 5px solid #000000;
+      padding: 25px;
+      margin-bottom: 25px;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+    }
+    
+    .testing-level:hover {
+      background: #ffffff;
+      border-left-width: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    
+    .ai-feature {
+      background: #f8f9fa;
+      border: 2px solid #e0e0e0;
+      padding: 30px;
+      border-radius: 15px;
+      margin-bottom: 20px;
+      transition: all 0.3s ease;
+    }
+    
+    .ai-feature:hover {
+      border-color: #000000;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+    }
+    
+    .section-title {
+      position: relative;
+      padding-bottom: 15px;
+      margin-bottom: 40px;
+      color: #000000;
+    }
+    
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background: #000000;
+      border-radius: 2px;
+    }
+    
+    .cta-button {
+      background: #000000;
+      border: none;
+      padding: 15px 40px;
+      font-size: 1.1rem;
+      border-radius: 50px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      color: white;
+    }
+    
+    .cta-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+      background: #1a1a1a;
+      color: white;
+    }
+    
+    .stats-section {
+      background: linear-gradient(135deg, #1a1a1a 0%, #000000 100%);
+      color: white;
+      padding: 60px 0;
+    }
+    
+    .stat-item {
+      text-align: center;
+      padding: 20px;
+    }
+    
+    .stat-number {
+      font-size: 3rem;
+      font-weight: bold;
+      display: block;
+    }
+    
+    .badge-custom {
+      background: #000000;
+      color: white;
+      padding: 5px 15px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+    }
+    
+    .nft-badge {
+      display: inline-block;
+      background: #000000;
+      color: white;
+      padding: 8px 20px;
+      border-radius: 25px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
 <body>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <a class="navbar-brand" href="#">QAConsul</a>
+  <nav class="navbar navbar-expand-lg navbar-dark">
+    <a class="navbar-brand font-weight-bold d-flex align-items-center" href="#">
+      <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Crect width='300' height='300' fill='white'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial, sans-serif' font-size='35' font-weight='bold' fill='black'%3EQAConsul%3C/text%3E%3C/svg%3E" alt="QAConsul Logo" style="height: 40px; margin-right: 10px; border-radius: 5px;">
+      QAConsul
+    </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
+      <ul class="navbar-nav ml-auto">
         <li class="nav-item">
           <a class="nav-link" href="#services">Services</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#testing-levels">Testing Levels</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#ai-solutions">AI Solutions</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#about">About Us</a>
@@ -40,31 +188,350 @@ body, html {height: 100%}
     </div>
   </nav>
 
-  <div class="jumbotron jumbotron-fluid bg-light">
+  <div class="hero-section">
     <div class="container text-center">
-      <h1 class="display-4">QAConsul</h1>
-      <p class="lead">We ensure the quality of your software applications</p>
+      <h1 class="display-3 font-weight-bold mb-4">Next-Gen Quality Assurance & Quality Control</h1>
+      <p class="lead mb-5">AI-Powered Testing Solutions for Modern Software Development</p>
+      <button class="btn btn-light btn-lg cta-button">Get Started Today</button>
     </div>
   </div>
 
-  <div class="container my-5" id="services">
-    <h2 class="text-center">Services</h2>
-    <p>Our services include:</p>
-    <ul>
-      <li>Manual Testing</li>
-      <li>Automated Testing</li>
-      <li>Performance Testing</li>
-      <li>Security Testing</li>
-      <li>Usability Testing</li>
-    </ul>
+  <div class="stats-section">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3 stat-item">
+          <span class="stat-number">50+</span>
+          <p>Projects Delivered</p>
+        </div>
+        <div class="col-md-3 stat-item">
+          <span class="stat-number">98%</span>
+          <p>Bug Detection Rate</p>
+        </div>
+        <div class="col-md-3 stat-item">
+          <span class="stat-number">60%</span>
+          <p>Faster Testing</p>
+        </div>
+        <div class="col-md-3 stat-item">
+          <span class="stat-number">30+</span>
+          <p>Happy Clients</p>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <div class="container my-5" id="about">
-    <h2 class="text-center">About Us</h2>
-    <p>We are a software quality assurance company with a passion for delivering high-quality software applications. Our team of experts uses the latest tools and techniques to ensure that your applications meet the highest standards of quality and functionality.</p>
+  <div class="container my-5 py-5" id="services">
+    <h2 class="text-center section-title">Our Comprehensive Testing Services</h2>
+    
+    <div class="text-center mb-5">
+      <span class="nft-badge">Functional Testing</span>
+    </div>
+    
+    <div class="row">
+      <div class="col-md-4 mb-4">
+        <div class="card service-card">
+          <div class="card-body text-center">
+            <div class="service-icon">🤖</div>
+            <h5 class="card-title font-weight-bold">AI-Driven Automated Testing</h5>
+            <p class="card-text">Leverage machine learning algorithms for intelligent test case generation, self-healing test scripts, and predictive defect analysis.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="card service-card">
+          <div class="card-body text-center">
+            <div class="service-icon">👁️</div>
+            <h5 class="card-title font-weight-bold">Manual & Exploratory Testing</h5>
+            <p class="card-text">Expert human testers identify edge cases and usability issues that automated tools might miss, ensuring comprehensive coverage.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="card service-card">
+          <div class="card-body text-center">
+            <div class="service-icon">🔄</div>
+            <h5 class="card-title font-weight-bold">Regression Testing</h5>
+            <p class="card-text">Ensure new changes don't break existing functionality with intelligent test selection and continuous validation.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="card service-card">
+          <div class="card-body text-center">
+            <div class="service-icon">📱</div>
+            <h5 class="card-title font-weight-bold">Mobile & Cross-Platform Testing</h5>
+            <p class="card-text">Comprehensive testing across devices, OS versions, and screen sizes with automated compatibility checks.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="card service-card">
+          <div class="card-body text-center">
+            <div class="service-icon">🔗</div>
+            <h5 class="card-title font-weight-bold">API & Integration Testing</h5>
+            <p class="card-text">Validate data exchange between systems, microservices, and third-party integrations with automated contract testing.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="card service-card">
+          <div class="card-body text-center">
+            <div class="service-icon">✨</div>
+            <h5 class="card-title font-weight-bold">Smoke & Sanity Testing</h5>
+            <p class="card-text">Quick validation to ensure critical functionalities work before deeper testing begins.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-center my-5">
+      <span class="nft-badge">Non-Functional Testing</span>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4 mb-4">
+        <div class="card service-card">
+          <div class="card-body text-center">
+            <div class="service-icon">⚡</div>
+            <h5 class="card-title font-weight-bold">Performance Testing</h5>
+            <p class="card-text">Load, stress, spike, and endurance testing using AI-powered analytics to predict system behavior under varying conditions and identify bottlenecks.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="card service-card">
+          <div class="card-body text-center">
+            <div class="service-icon">🔒</div>
+            <h5 class="card-title font-weight-bold">Security Testing</h5>
+            <p class="card-text">Vulnerability scanning, penetration testing, security audits, and threat modeling to protect against SQL injection, XSS, and other cyber threats.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="card service-card">
+          <div class="card-body text-center">
+            <div class="service-icon">♿</div>
+            <h5 class="card-title font-weight-bold">Accessibility Testing</h5>
+            <p class="card-text">Ensure WCAG 2.1 AA/AAA compliance, screen reader compatibility, and inclusive design with AI-powered accessibility audits.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="card service-card">
+          <div class="card-body text-center">
+            <div class="service-icon">💎</div>
+            <h5 class="card-title font-weight-bold">Usability Testing</h5>
+            <p class="card-text">Evaluate user experience, interface design, navigation flow, and overall user satisfaction through real user testing and heatmap analysis.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="card service-card">
+          <div class="card-body text-center">
+            <div class="service-icon">🔧</div>
+            <h5 class="card-title font-weight-bold">Reliability & Stability Testing</h5>
+            <p class="card-text">Long-duration testing to identify memory leaks, resource exhaustion, and ensure system stability under continuous operation.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="card service-card">
+          <div class="card-body text-center">
+            <div class="service-icon">🌍</div>
+            <h5 class="card-title font-weight-bold">Compatibility Testing</h5>
+            <p class="card-text">Verify application works across different browsers, operating systems, devices, network conditions, and configurations.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="card service-card">
+          <div class="card-body text-center">
+            <div class="service-icon">🔄</div>
+            <h5 class="card-title font-weight-bold">Disaster Recovery Testing</h5>
+            <p class="card-text">Validate backup systems, failover mechanisms, and recovery procedures to ensure business continuity during outages.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="card service-card">
+          <div class="card-body text-center">
+            <div class="service-icon">📊</div>
+            <h5 class="card-title font-weight-bold">Scalability Testing</h5>
+            <p class="card-text">Assess system's ability to scale up or down based on user load, data volume, and transaction rates.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="card service-card">
+          <div class="card-body text-center">
+            <div class="service-icon">🌐</div>
+            <h5 class="card-title font-weight-bold">Localization Testing</h5>
+            <p class="card-text">Verify application adapts correctly to different languages, regions, cultures, date formats, and currency conventions.</p>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <div class="container my-5" id="contact">
-    <h2 class="text-center">Contact</h2>
-    <p class="w3-large w3-center">qaconsul@gmail.com</p>
-      </
+  <div class="container-fluid bg-light py-5" id="testing-levels">
+    <div class="container">
+      <h2 class="text-center section-title">Testing Levels & Methodologies</h2>
+      <p class="text-center mb-5 text-muted">Comprehensive quality assurance at every stage of development</p>
+      
+      <div class="testing-level">
+        <h4 class="font-weight-bold">🔬 Unit Testing <span class="badge-custom">Foundation Level</span></h4>
+        <p><strong>Purpose:</strong> Test individual components or functions in isolation to verify they work as expected.</p>
+        <p><strong>Scope:</strong> Individual methods, functions, classes, or modules tested independently from the rest of the system.</p>
+        <p><strong>AI Enhancement:</strong> Automated unit test generation using code analysis, intelligent assertion creation, and mutation testing to ensure test effectiveness.</p>
+        <p><strong>Tools:</strong> JUnit, NUnit, pytest, Mocha, Jest with AI test generators</p>
+      </div>
+
+      <div class="testing-level">
+        <h4 class="font-weight-bold">🔗 Integration Testing <span class="badge-custom">Component Level</span></h4>
+        <p><strong>Purpose:</strong> Verify that different modules or services work together correctly and data flows properly between components.</p>
+        <p><strong>Scope:</strong> Interfaces between modules, API endpoints, database connections, and service-to-service communication.</p>
+        <p><strong>AI Enhancement:</strong> Smart integration path discovery, automatic mock generation, and anomaly detection in inter-service communication.</p>
+        <p><strong>Tools:</strong> Postman, SoapUI, TestNG, Rest-Assured with ML-powered API testing</p>
+      </div>
+
+      <div class="testing-level">
+        <h4 class="font-weight-bold">🖥️ System Testing <span class="badge-custom">Application Level</span></h4>
+        <p><strong>Purpose:</strong> Test the complete integrated system to evaluate compliance with specified requirements.</p>
+        <p><strong>Scope:</strong> End-to-end testing of the entire application including all integrated components, both functional and non-functional aspects.</p>
+        <p><strong>Non-Functional Focus:</strong> Performance, security, usability, reliability, and compatibility testing are primarily conducted at this level.</p>
+        <p><strong>AI Enhancement:</strong> Intelligent test scenario generation, visual regression testing using computer vision, and predictive defect analysis.</p>
+        <p><strong>Tools:</strong> Selenium, Cypress, Playwright, JMeter, LoadRunner with AI visual validation</p>
+      </div>
+
+      <div class="testing-level">
+        <h4 class="font-weight-bold">✅ Acceptance Testing (UAT) <span class="badge-custom">Business Level</span></h4>
+        <p><strong>Purpose:</strong> Validate that the system meets business requirements and is ready for deployment.</p>
+        <p><strong>Scope:</strong> Business workflows, user scenarios, and acceptance criteria defined by stakeholders.</p>
+        <p><strong>Types:</strong> Alpha testing (internal), Beta testing (external users), and Contract Acceptance Testing.</p>
+        <p><strong>AI Enhancement:</strong> Natural language processing to convert user stories into test cases, sentiment analysis on user feedback, and automated acceptance criteria validation.</p>
+        <p><strong>Tools:</strong> Cucumber, SpecFlow, Behave, FitNesse with NLP-powered BDD</p>
+      </div>
+
+      <div class="testing-level">
+        <h4 class="font-weight-bold">🔄 Regression Testing <span class="badge-custom">Continuous</span></h4>
+        <p><strong>Purpose:</strong> Ensure that new code changes don't adversely affect existing functionality.</p>
+        <p><strong>Scope:</strong> Re-execution of previously passed test cases after code modifications, bug fixes, or enhancements.</p>
+        <p><strong>Strategy:</strong> Selective regression (test affected areas), progressive regression (test new and modified code), complete regression (full test suite).</p>
+        <p><strong>AI Enhancement:</strong> Intelligent test selection based on code changes, self-healing tests that adapt to UI changes, and risk-based test prioritization.</p>
+        <p><strong>Tools:</strong> Jenkins, GitLab CI/CD, CircleCI, GitHub Actions with ML-based test optimization</p>
+      </div>
+
+      <div class="testing-level">
+        <h4 class="font-weight-bold">🚀 Production Monitoring <span class="badge-custom">Post-Deployment</span></h4>
+        <p><strong>Purpose:</strong> Continuously monitor application performance and user experience in production environments.</p>
+        <p><strong>Scope:</strong> Real-time monitoring of system health, user behavior, performance metrics, and error tracking.</p>
+        <p><strong>Non-Functional Monitoring:</strong> Response times, resource utilization, uptime, security incidents, and user satisfaction metrics.</p>
+        <p><strong>AI Enhancement:</strong> Anomaly detection, predictive alerting, automated root cause analysis, and real-time performance optimization.</p>
+        <p><strong>Tools:</strong> Datadog, New Relic, Dynatrace, Grafana, Prometheus with AI-powered observability</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="container my-5 py-5" id="ai-solutions">
+    <h2 class="text-center section-title">AI-Powered QA Solutions</h2>
+    <p class="text-center mb-5 text-muted">Transforming software testing with artificial intelligence</p>
+    
+    <div class="row">
+      <div class="col-md-6">
+        <div class="ai-feature">
+          <h4 class="font-weight-bold">🧠 Intelligent Test Generation</h4>
+          <p>Our AI analyzes your application's codebase, user flows, and historical data to automatically generate comprehensive test cases that maximize coverage while minimizing redundancy.</p>
+          <ul>
+            <li>Automated test script creation from requirements</li>
+            <li>Smart test data generation</li>
+            <li>Optimal test path identification</li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="ai-feature">
+          <h4 class="font-weight-bold">🔮 Predictive Defect Analysis</h4>
+          <p>Machine learning models trained on millions of bugs predict where defects are most likely to occur, allowing you to focus testing efforts on high-risk areas.</p>
+          <ul>
+            <li>Risk-based testing prioritization</li>
+            <li>Code quality predictions</li>
+            <li>Early warning system for potential issues</li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="ai-feature">
+          <h4 class="font-weight-bold">🛠️ Self-Healing Test Automation</h4>
+          <p>Tests that automatically adapt to UI changes, reducing maintenance overhead by up to 70%. Our AI identifies element changes and updates test scripts in real-time.</p>
+          <ul>
+            <li>Dynamic locator strategies</li>
+            <li>Automatic script updates</li>
+            <li>Reduced test flakiness</li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="ai-feature">
+          <h4 class="font-weight-bold">📊 Advanced Analytics & Reporting</h4>
+          <p>AI-driven insights transform raw test data into actionable intelligence with trend analysis, quality metrics prediction, and automated report generation.</p>
+          <ul>
+            <li>Real-time dashboards</li>
+            <li>Predictive quality metrics</li>
+            <li>Automated root cause analysis</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-fluid bg-light py-5" id="about">
+    <div class="container">
+      <h2 class="text-center section-title">About QAConsul</h2>
+      <div class="row align-items-center">
+        <div class="col-md-6">
+          <p class="lead">We are providers in AI-powered software quality assurance, combining cutting-edge technology with deep testing expertise to deliver unparalleled quality solutions.</p>
+          <p>Founded by seasoned QA professional, QAConsul has evolved from traditional testing methods to become a leader in intelligent, automated quality assurance. Our team of certified QA engineers, data scientists, and AI specialists work together to ensure your software meets the highest standards of quality, security, and performance.</p>
+        </div>
+        <div class="col-md-6">
+          <h5 class="font-weight-bold mb-3">Why Choose QAConsul?</h5>
+          <ul class="list-unstyled">
+            <li class="mb-2">✓ <strong>AI-First Approach:</strong> Leveraging machine learning for smarter testing</li>
+            <li class="mb-2">✓ <strong>Comprehensive Coverage:</strong> All testing levels and methodologies</li>
+            <li class="mb-2">✓ <strong>Continuous Innovation:</strong> Constantly updating our tools and techniques</li>
+            <li class="mb-2">✓ <strong>Certified Experts:</strong> ISTQB, AWS, and AI/ML certified professionals</li>
+            <li class="mb-2">✓ <strong>Agile & DevOps Ready:</strong> Seamless CI/CD integration</li>
+            <li class="mb-2">✓ <strong>24/7 Support:</strong> Round-the-clock monitoring and assistance</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container my-5 py-5" id="contact">
+    <h2 class="text-center section-title">Get in Touch</h2>
+    <div class="row justify-content-center">
+      <div class="col-md-8 text-center">
+        <p class="lead mb-4">Ready to elevate your software quality? Let's discuss how our AI-powered testing solutions can transform your development process.</p>
+        <div class="card shadow-lg border-0">
+          <div class="card-body p-5">
+            <h4 class="mb-4">Contact Information</h4>
+            <p class="h5 mb-3">📧 qaconsul@gmail.com</p>
+            <p class="mb-3">📞 (Available on Request)</p>
+            <p class="mb-4">📍 Dhaka, Bangladesh | Remote Services Available</p>
+            <button class="btn btn-primary cta-button">Schedule a Consultation</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="text-center py-4" style="background: #000000; color: white;">
+    <div class="container">
+      <p class="mb-0">&copy; 2025 QAConsul. All rights reserved. | Ensuring Quality Through Innovation</p>
+    </div>
+  </footer>
+
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+</html>
