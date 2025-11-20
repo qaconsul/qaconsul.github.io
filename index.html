@@ -159,8 +159,83 @@
     }
 
     .whatsapp-icon {
-            font-size: 20px; /* Example: increase icon size */
-            color: #25D366; /* Example: set WhatsApp green color */
+      font-size: 20px;
+      color: #25D366;
+    }
+    
+    .clients-section {
+      background: #ffffff;
+      padding: 60px 0;
+      overflow: hidden;
+    }
+    
+    .logo-carousel {
+      overflow: hidden;
+      position: relative;
+      background: white;
+      padding: 40px 0;
+    }
+    
+    .logo-carousel::before,
+    .logo-carousel::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      width: 150px;
+      height: 100%;
+      z-index: 2;
+    }
+    
+    .logo-carousel::before {
+      left: 0;
+      background: linear-gradient(to right, white, transparent);
+    }
+    
+    .logo-carousel::after {
+      right: 0;
+      background: linear-gradient(to left, white, transparent);
+    }
+    
+    .logo-track {
+      display: flex;
+      animation: scroll 30s linear infinite;
+      width: fit-content;
+    }
+    
+    .logo-slide {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 40px;
+      min-width: 200px;
+    }
+    
+    .logo-slide img {
+      max-width: 150px;
+      max-height: 80px;
+      object-fit: contain;
+      filter: grayscale(100%);
+      opacity: 0.6;
+      transition: all 0.3s ease;
+    }
+    
+    .logo-slide img:hover {
+      filter: grayscale(0%);
+      opacity: 1;
+      transform: scale(1.1);
+    }
+    
+    @keyframes scroll {
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(-50%);
+      }
+    }
+    
+    .logo-carousel:hover .logo-track {
+      animation-play-state: paused;
     }
   </style>
 </head>
@@ -183,6 +258,9 @@
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#ai-solutions">AI Solutions</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#clients">Clients</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#about">About Us</a>
@@ -342,7 +420,7 @@
       <div class="col-md-4 mb-4">
         <div class="card service-card">
           <div class="card-body text-center">
-            <div class="service-icon">🌍</div>
+            <div class="service-icon">🌐</div>
             <h5 class="card-title font-weight-bold">Compatibility Testing</h5>
             <p class="card-text">Verify application works across different browsers, operating systems, devices, network conditions, and configurations.</p>
           </div>
@@ -369,7 +447,7 @@
       <div class="col-md-4 mb-4">
         <div class="card service-card">
           <div class="card-body text-center">
-            <div class="service-icon">🌐</div>
+            <div class="service-icon">🌍</div>
             <h5 class="card-title font-weight-bold">Localization Testing</h5>
             <p class="card-text">Verify application adapts correctly to different languages, regions, cultures, date formats, and currency conventions.</p>
           </div>
@@ -489,6 +567,43 @@
     </div>
   </div>
 
+  <div class="clients-section" id="clients">
+    <div class="container">
+      <h2 class="text-center section-title">Trusted by Industry Leaders</h2>
+      <p class="text-center mb-5 text-muted">We've partnered with innovative companies across various industries</p>
+    </div>
+    
+    <div class="logo-carousel">
+      <div class="logo-track">
+        <!-- First set of logos -->
+        <div class="logo-slide">
+          <img src="https://www.creativesims.com/wp-content/uploads/2023/03/cropped-Creative-sims-logo-PNG-Final.png" alt="Creative Sims">
+        </div>
+        <div class="logo-slide">
+          <img src="https://www.pmi.org/-/media/pmi/microsites/projectified/images/pmi_logo.png" alt="PMI">
+        </div>
+        <div class="logo-slide">
+          <img src="https://images.squarespace-cdn.com/content/v1/5e8ba5818bd8714196494b0f/1586193420909-A19P4FGRR54EFBCQVXVY/Wisecube_Horizontal.png" alt="Wisecube AI">
+        </div>
+        <div class="logo-slide">
+          <img src="https://baumrealty.com/wp-content/uploads/2021/09/Logo.png" alt="Baum Realty">
+        </div>
+        <div class="logo-slide">
+          <img src="https://tokenoftrust.com/wp-content/uploads/2022/01/logo-1.png" alt="Token of Trust">
+        </div>
+        <div class="logo-slide">
+          <img src="https://www.caseactive.com/wp-content/uploads/2020/02/caseactive-logo.svg" alt="CaseActive">
+        </div>
+        <div class="logo-slide">
+          <img src="https://www.metlife.com.bd/content/dam/metlifecom/bd/logos/metlife-logo.svg" alt="MetLife">
+        </div>
+        <div class="logo-slide">
+          <img src="https://riseuplabs.com/wp-content/uploads/2021/03/riseuplabs-logo.svg" alt="RiseUp Labs">
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="container-fluid bg-light py-5" id="about">
     <div class="container">
       <h2 class="text-center section-title">About QAConsul</h2>
@@ -540,4 +655,3 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 </body>
-</html>
