@@ -176,25 +176,19 @@
       padding: 40px 0;
     }
     
-    .logo-carousel::before,
-    .logo-carousel::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      width: 150px;
-      height: 100%;
-      z-index: 2;
+    /* Ensure all images within the carousel are in full color */
+    .logo-carousel img {
+      filter: grayscale(0) !important; /* Forces full color, overriding any other rules */
+      opacity: 1 !important;           /* Ensures full opacity, no transparency */
+      transition: none !important;     /* Disables any transition effects on the filter/opacity */
     }
-    
-    .logo-carousel::before {
-      left: 0;
-      background: linear-gradient(to right, white, transparent);
-    }
-    
-    .logo-carousel::after {
-      right: 0;
-      background: linear-gradient(to left, white, transparent);
-    }
+
+/* Specific rules to prevent hover effects from changing the color/opacity */
+   .logo-carousel img:hover,
+   .logo-carousel img:focus {
+     filter: grayscale(0) !important;
+     opacity: 1 !important;
+}
     
     .logo-track {
       display: flex;
