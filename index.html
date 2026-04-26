@@ -1,678 +1,1134 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <title>QAConsul - AI-Powered Quality Assurance</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
 
   <style>
-    body, h1, h2, h3 {font-family: "Raleway", sans-serif}
-    body, html {height: 100%; scroll-behavior: smooth; background: #D4E6F1;padding-top: 30px;}
-    
-    .hero-section {
-      background: linear-gradient(135deg, #4682B4 0%, #6495ED 100%);
-      color: white;
-      padding: 100px 0;
-      position: relative;
-      overflow: hidden;
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy: #1B2A4A;
+      --navy-light: #243660;
+      --navy-dark: #111b30;
+      --accent: #2563EB;
+      --gray: #6B7280;
+      --gray-light: #F3F4F6;
+      --gray-border: #E5E7EB;
+      --white: #ffffff;
+      --text: #1F2937;
     }
-    
-    .hero-section::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120"><path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" opacity=".1" fill="%23ffffff"></path></svg>') no-repeat bottom;
-      background-size: cover;
-      opacity: 0.1;
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+      color: var(--text);
+      background: var(--white);
+      line-height: 1.6;
     }
-    
+
+    /* ── NAVBAR ── */
     .navbar {
       position: fixed;
       top: 0;
       width: 100%;
       z-index: 1000;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      background: #1434A4 !important;
+      background: var(--navy);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 5%;
+      height: 68px;
     }
-    
-    .service-card {
-      border: 2px solid #e0e0e0;
-      border-radius: 15px;
-      transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-      height: 100%;
-      background: #ffffff;
+
+    .navbar-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--white);
+      font-weight: 800;
+      font-size: 1.25rem;
+      letter-spacing: 0.5px;
     }
-    
-    .service-card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 12px 24px rgba(0,0,0,0.15);
-      border-color: #000000;
+
+    .navbar-brand svg {
+      width: 36px;
+      height: 36px;
     }
-    
-    .service-icon {
-      font-size: 3.5rem;
-      margin-bottom: 1rem;
-      filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.1));
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      list-style: none;
     }
-    
-    .testing-level {
-      background: #f8f9fa;
-      border-left: 5px solid #000000;
-      padding: 25px;
-      margin-bottom: 25px;
-      border-radius: 8px;
-      transition: all 0.3s ease;
+
+    .nav-links a {
+      color: rgba(255,255,255,0.85);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      padding: 6px 14px;
+      border-radius: 4px;
+      transition: background 0.2s, color 0.2s;
     }
-    
-    .testing-level:hover {
-      background: #ffffff;
-      border-left-width: 8px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+
+    .nav-links a:hover { background: rgba(255,255,255,0.12); color: var(--white); }
+
+    .nav-links .nav-cta {
+      background: var(--accent);
+      color: var(--white) !important;
+      padding: 8px 20px;
+      border-radius: 6px;
+      font-weight: 600;
     }
-    
-    .ai-feature {
-      background: #f8f9fa;
-      border: 2px solid #e0e0e0;
-      padding: 30px;
-      border-radius: 15px;
-      margin-bottom: 20px;
-      transition: all 0.3s ease;
+
+    .nav-links .nav-cta:hover { background: #1d4ed8; }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
     }
-    
-    .ai-feature:hover {
-      border-color: #000000;
-      box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--white);
+      border-radius: 2px;
+      transition: all 0.3s;
     }
-    
-    .section-title {
+
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 60%, #2d4a7a 100%);
+      color: var(--white);
+      padding: 160px 5% 100px;
+      text-align: center;
       position: relative;
-      padding-bottom: 15px;
-      margin-bottom: 40px;
-      color: #000000;
+      overflow: hidden;
     }
-    
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      right: 0;
+      height: 60px;
+      background: var(--white);
+      clip-path: ellipse(55% 100% at 50% 100%);
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.25);
+      color: rgba(255,255,255,0.9);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 6px 18px;
+      border-radius: 20px;
+      margin-bottom: 24px;
+    }
+
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 800;
+      line-height: 1.15;
+      max-width: 780px;
+      margin: 0 auto 20px;
+      letter-spacing: -0.5px;
+    }
+
+    .hero p {
+      font-size: 1.15rem;
+      color: rgba(255,255,255,0.8);
+      max-width: 560px;
+      margin: 0 auto 40px;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      background: var(--accent);
+      color: var(--white);
+      padding: 14px 36px;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 16px rgba(37,99,235,0.4);
+    }
+
+    .btn-primary:hover {
+      background: #1d4ed8;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(37,99,235,0.5);
+      color: var(--white);
+    }
+
+    /* ── SECTION BASE ── */
+    section { padding: 80px 5%; }
+
+    .section-label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 12px;
+      text-align: center;
+    }
+
+    .section-title {
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 800;
+      color: var(--navy);
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 14px;
+      position: relative;
+      padding-bottom: 18px;
+    }
+
     .section-title::after {
       content: '';
       position: absolute;
       bottom: 0;
       left: 50%;
       transform: translateX(-50%);
-      width: 80px;
-      height: 4px;
-      background: #000000;
+      width: 56px;
+      height: 3px;
+      background: var(--accent);
       border-radius: 2px;
     }
-    
-    .cta-button {
-      background: #000000;
-      border: none;
-      padding: 15px 40px;
-      font-size: 1.1rem;
-      border-radius: 50px;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-      color: white;
+
+    .section-subtitle {
+      text-align: center;
+      color: var(--gray);
+      font-size: 1rem;
+      max-width: 600px;
+      margin: 0 auto 52px;
     }
-    
-    .cta-button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(0,0,0,0.4);
-      background: #1a1a1a;
-      color: white;
-    }
-    
+
+    /* ── STATS ── */
     .stats-section {
-      background: linear-gradient(135deg, #4682B4 0%, #4682B4 100%);
-      color: white;
-      padding: 60px 0;
+      background: var(--navy);
+      color: var(--white);
+      padding: 60px 5%;
     }
-    
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
     .stat-item {
       text-align: center;
-      padding: 20px;
+      padding: 24px 20px;
+      border-right: 1px solid rgba(255,255,255,0.1);
     }
-    
+
+    .stat-item:last-child { border-right: none; }
+
     .stat-number {
-      font-size: 3rem;
-      font-weight: bold;
+      font-size: 2.8rem;
+      font-weight: 800;
+      color: var(--white);
       display: block;
-    }
-    
-    .badge-custom {
-      background: #000000;
-      color: white;
-      padding: 5px 15px;
-      border-radius: 20px;
-      font-size: 0.85rem;
-    }
-    
-    .nft-badge {
-      display: inline-block;
-      background: #000000;
-      color: white;
-      padding: 8px 20px;
-      border-radius: 25px;
-      font-weight: bold;
-      margin-bottom: 20px;
+      line-height: 1;
+      margin-bottom: 8px;
     }
 
-    .whatsapp-icon {
-      font-size: 20px;
-      color: #25D366;
+    .stat-label {
+      font-size: 0.875rem;
+      color: rgba(255,255,255,0.65);
+      font-weight: 500;
     }
 
-    .contact-link {
-      display: inline-block;
-      padding: 12px 24px;
-      background-color: #D22B2B;
-      color: white;
-      text-decoration: none;
-      border-radius: 5px;
-      font-weight: 600;
-      transition: background-color 0.3s ease;
-    }
-    
+    /* ── CLIENTS ── */
     .clients-section {
-      background: #B6D0E2;
+      background: var(--gray-light);
       padding: 60px 0;
       overflow: hidden;
     }
-    
-    .logo-carousel {
-      overflow: hidden;
-      position: relative;
-      background: white;
-      padding: 40px 0;
-    }
-    
-    /* Ensure all images within the carousel are in full color */
-    .logo-carousel img {
-      filter: grayscale(0) !important; /* Forces full color, overriding any other rules */
-      opacity: 1 !important;           /* Ensures full opacity, no transparency */
-      transition: none !important;     /* Disables any transition effects on the filter/opacity */
+
+    .clients-section .section-title,
+    .clients-section .section-subtitle {
+      padding-left: 5%;
+      padding-right: 5%;
     }
 
-/* Specific rules to prevent hover effects from changing the color/opacity */
-   .logo-carousel img:hover,
-   .logo-carousel img:focus {
-     filter: grayscale(0) !important;
-     opacity: 1 !important;
-}
-    
+    .logo-carousel {
+      position: relative;
+      background: var(--white);
+      padding: 36px 0;
+      border-top: 1px solid var(--gray-border);
+      border-bottom: 1px solid var(--gray-border);
+    }
+
     .logo-track {
       display: flex;
       animation: scroll 30s linear infinite;
       width: fit-content;
     }
-    
+
+    .logo-carousel:hover .logo-track { animation-play-state: paused; }
+
     .logo-slide {
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 0 40px;
-      min-width: 200px;
+      padding: 0 48px;
+      min-width: 180px;
     }
-    
+
     .logo-slide img {
-      max-width: 150px;
-      max-height: 80px;
+      max-width: 130px;
+      max-height: 70px;
       object-fit: contain;
-      filter: grayscale(100%);
-      opacity: 0.6;
-      transition: all 0.3s ease;
+      transition: transform 0.3s;
     }
-    
+
     .logo-slide img:hover {
-      filter: grayscale(0%);
-      opacity: 1;
-      transform: scale(1.1);
+      transform: scale(1.08);
     }
-    
+
     @keyframes scroll {
-      0% {
-        transform: translateX(0);
-      }
-      100% {
-        transform: translateX(-50%);
-      }
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
     }
-    
-    .logo-carousel:hover .logo-track {
-      animation-play-state: paused;
+
+    /* ── CATEGORY BADGE ── */
+    .category-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--navy);
+      color: var(--white);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 8px 22px;
+      border-radius: 4px;
+      margin-bottom: 32px;
+    }
+
+    /* ── CARDS GRID ── */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .service-card {
+      background: var(--white);
+      border: 1px solid var(--gray-border);
+      border-radius: 10px;
+      padding: 32px 28px;
+      transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+    }
+
+    .service-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 40px rgba(27,42,74,0.12);
+      border-color: var(--accent);
+    }
+
+    .card-icon {
+      width: 52px;
+      height: 52px;
+      background: rgba(37,99,235,0.08);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 18px;
+    }
+
+    .card-icon svg {
+      width: 26px;
+      height: 26px;
+      stroke: var(--accent);
+      fill: none;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .service-card h5 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 10px;
+    }
+
+    .service-card p {
+      font-size: 0.9rem;
+      color: var(--gray);
+      line-height: 1.65;
+    }
+
+    /* ── TESTING LEVELS ── */
+    .levels-section { background: var(--gray-light); }
+
+    .level-card {
+      background: var(--white);
+      border-left: 4px solid var(--navy);
+      border-radius: 8px;
+      padding: 28px 32px;
+      margin-bottom: 20px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .level-card:hover {
+      border-color: var(--accent);
+      box-shadow: 0 6px 20px rgba(27,42,74,0.1);
+    }
+
+    .level-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+
+    .level-icon {
+      width: 42px;
+      height: 42px;
+      background: var(--navy);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .level-icon svg {
+      width: 22px;
+      height: 22px;
+      stroke: var(--white);
+      fill: none;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .level-card h4 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--navy);
+    }
+
+    .badge-pill {
+      background: var(--accent);
+      color: var(--white);
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 20px;
+      margin-left: auto;
+    }
+
+    .level-card p { font-size: 0.9rem; color: var(--gray); margin-bottom: 8px; }
+    .level-card p:last-child { margin-bottom: 0; }
+    .level-card strong { color: var(--text); }
+
+    /* ── AI SOLUTIONS ── */
+    .ai-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+
+    .ai-card {
+      background: var(--white);
+      border: 1px solid var(--gray-border);
+      border-radius: 10px;
+      padding: 32px 28px;
+      transition: box-shadow 0.25s, border-color 0.25s;
+    }
+
+    .ai-card:hover {
+      border-color: var(--accent);
+      box-shadow: 0 12px 32px rgba(27,42,74,0.1);
+    }
+
+    .ai-card .card-icon { background: rgba(27,42,74,0.06); }
+    .ai-card .card-icon svg { stroke: var(--navy); }
+
+    .ai-card h4 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 12px;
+    }
+
+    .ai-card p { font-size: 0.9rem; color: var(--gray); margin-bottom: 14px; }
+
+    .ai-card ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .ai-card ul li {
+      font-size: 0.875rem;
+      color: var(--gray);
+      padding: 4px 0;
+      padding-left: 20px;
+      position: relative;
+    }
+
+    .ai-card ul li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 12px;
+      width: 6px;
+      height: 6px;
+      background: var(--accent);
+      border-radius: 50%;
+    }
+
+    /* ── ABOUT ── */
+    .about-section { background: var(--gray-light); }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 56px;
+      align-items: start;
+    }
+
+    .about-text p {
+      color: var(--gray);
+      margin-bottom: 16px;
+      line-height: 1.75;
+    }
+
+    .about-text .lead-text {
+      font-size: 1.05rem;
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .why-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .why-list li {
+      display: flex;
+      gap: 12px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--gray-border);
+      font-size: 0.9rem;
+      color: var(--gray);
+    }
+
+    .why-list li:first-child { border-top: 1px solid var(--gray-border); }
+
+    .why-list li .check {
+      width: 22px;
+      height: 22px;
+      background: var(--accent);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .why-list li .check svg {
+      width: 12px;
+      height: 12px;
+      stroke: white;
+      fill: none;
+      stroke-width: 2.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .why-list li strong { color: var(--text); }
+
+    /* ── CONTACT ── */
+    .contact-card {
+      background: var(--white);
+      border: 1px solid var(--gray-border);
+      border-radius: 12px;
+      padding: 48px;
+      max-width: 680px;
+      margin: 0 auto;
+      box-shadow: 0 8px 32px rgba(27,42,74,0.08);
+    }
+
+    .contact-card h4 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--navy);
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--gray-border);
+      font-size: 0.95rem;
+      color: var(--gray);
+    }
+
+    .contact-item:last-of-type { border-bottom: none; margin-bottom: 28px; }
+
+    .contact-item .contact-icon {
+      width: 40px;
+      height: 40px;
+      background: rgba(37,99,235,0.08);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .contact-item .contact-icon svg {
+      width: 20px;
+      height: 20px;
+      stroke: var(--accent);
+      fill: none;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--navy-dark);
+      color: rgba(255,255,255,0.6);
+      text-align: center;
+      padding: 24px 5%;
+      font-size: 0.875rem;
+    }
+
+    /* ── MOBILE ── */
+    @media (max-width: 900px) {
+      .cards-grid { grid-template-columns: repeat(2, 1fr); }
+      .ai-grid { grid-template-columns: 1fr; }
+      .about-grid { grid-template-columns: 1fr; gap: 32px; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .stat-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.1); }
+      .stat-item:nth-child(2n) { border-bottom: 1px solid rgba(255,255,255,0.1); }
+      .stat-item:last-child { border-bottom: none; }
+    }
+
+    @media (max-width: 640px) {
+      .cards-grid { grid-template-columns: 1fr; }
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+      .nav-links { display: none; flex-direction: column; position: absolute; top: 68px; left: 0; right: 0; background: var(--navy-dark); padding: 16px; gap: 4px; }
+      .nav-links.open { display: flex; }
+      .hamburger { display: flex; }
+      .hero { padding: 140px 5% 80px; }
+      .contact-card { padding: 28px 20px; }
+      .level-header { flex-direction: column; align-items: flex-start; }
+      .badge-pill { margin-left: 0; }
     }
   </style>
 </head>
 <body>
-  <nav class="navbar navbar-expand-lg navbar-dark">
-    <a class="navbar-brand font-weight-bold d-flex align-items-center" href="#">
-      <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Crect width='300' height='300' fill='white'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial, sans-serif' font-size='35' font-weight='bold' fill='black'%3EQAConsul%3C/text%3E%3C/svg%3E" alt="QAConsul Logo" style="height: 40px; margin-right: 10px; border-radius: 5px;">
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <a class="navbar-brand" href="#">
+      <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="36" height="36" rx="7" fill="white" fill-opacity="0.15"/>
+        <path d="M10 18a8 8 0 1 1 5 7.4" stroke="white" stroke-width="2.2" stroke-linecap="round"/>
+        <path d="M14 18l3 3 5-5" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
       QAConsul
     </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
+    <button class="hamburger" id="hamburger" aria-label="Toggle navigation">
+      <span></span><span></span><span></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item">
-          <a class="nav-link" href="#services">Services</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#testing-levels">Testing Levels</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#ai-solutions">AI Solutions</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#clients">Clients</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#about">About Us</a>
-        </li>
-        <li class="nav-item">
-          <a class="contact-link" href="#contact">Contact</a>
-        </li>
-      </ul>
-    </div>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#testing-levels">Testing Levels</a></li>
+      <li><a href="#ai-solutions">AI Solutions</a></li>
+      <li><a href="#clients">Clients</a></li>
+      <li><a href="#about">About Us</a></li>
+      <li><a href="#contact" class="nav-cta">Contact</a></li>
+    </ul>
   </nav>
 
-  <div class="hero-section">
-    <div class="container text-center">
-      <h1 class="display-3 font-weight-bold mb-4">Next-Gen Quality Assurance & Quality Control</h1>
-      <p class="lead mb-5">AI-Powered Testing Solutions for Modern Software Development</p>
-      <button class="btn btn-light btn-lg cta-button" onclick="document.getElementById('contact').scrollIntoView({behavior: 'smooth'})">Get Started Today</button>
-    </div>
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-badge">AI-Powered QA &amp; QC</div>
+    <h1>Next-Gen Quality Assurance &amp; Quality Control</h1>
+    <p>AI-Powered Testing Solutions for Modern Software Development</p>
+    <button class="btn-primary" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Get Started Today</button>
   </div>
-  
-<div class="clients-section" id="clients">
-    <div class="container">
-      <h2 class="text-center section-title">Endorsed by Leading Organizations </h2>
-      <p class="text-center mb-5 text-muted">We've partnered with innovative clients across various industries</p>
-    </div>
-    
+
+  <!-- CLIENTS -->
+  <section class="clients-section" id="clients">
+    <span class="section-label">Our Clients</span>
+    <h2 class="section-title">Endorsed by Leading Organizations</h2>
+    <p class="section-subtitle">We've partnered with innovative clients across various industries</p>
     <div class="logo-carousel">
       <div class="logo-track">
-        <!-- First set of logos -->
-        <div class="logo-slide">
-          <img src="https://raw.githubusercontent.com/qaconsul/qaconsul.github.io/master/creativesims.png" alt="Creative Sims">
-        </div>
-        <div class="logo-slide">
-          <img src="https://raw.githubusercontent.com/qaconsul/qaconsul.github.io/master/PMI.png" alt="PMI">
-        </div>
-        <div class="logo-slide">
-          <img src="https://raw.githubusercontent.com/qaconsul/qaconsul.github.io/master/wisecube.png" alt="Wisecube AI">
-        </div>
-        <div class="logo-slide">
-          <img src="https://raw.githubusercontent.com/qaconsul/qaconsul.github.io/master/baum.png" alt="Baum Realty">
-        </div>
-        <div class="logo-slide">
-          <img src="https://raw.githubusercontent.com/qaconsul/qaconsul.github.io/master/tot.png" alt="Token of Trust">
-        </div>
-        <div class="logo-slide">
-          <img src="https://raw.githubusercontent.com/qaconsul/qaconsul.github.io/master/ca.png" alt="CaseActive">
-        </div>
-        <div class="logo-slide">
-          <img src="https://raw.githubusercontent.com/qaconsul/qaconsul.github.io/master/met.png" alt="MetLife">
-        </div>
-        <div class="logo-slide">
-          <img src="https://raw.githubusercontent.com/qaconsul/qaconsul.github.io/master/rp.png" alt="RocketPhone AI">
-        </div>
-        <div class="logo-slide">
-          <img src="https://raw.githubusercontent.com/qaconsul/qaconsul.github.io/master/rul.png" alt="RiseUp Labs">
-        </div>
-        <div class="logo-slide">
-          <img src="https://raw.githubusercontent.com/qaconsul/qaconsul.github.io/master/silver.png" alt="Silver Mirror Facial Bar">
-        </div>
-        <div class="logo-slide">
-          <img src="https://raw.githubusercontent.com/qaconsul/qaconsul.github.io/master/Anova.png" alt="Anova Sports">
-        </div>
+        <div class="logo-slide"><img src="https://raw.githubusercontent.com/qaconsul/qaconsul.github.io/master/creativesims.png" alt="Creative Sims"></div>
+        <div class="logo-slide"><img src="https://raw.githubusercontent.com/qaconsul/qaconsul.github.io/master/PMI.png" alt="PMI"></div>
+        <div class="logo-slide"><img src="https://raw.githubusercontent.com/qaconsul/qaconsul.github.io/master/wisecube.png" alt="Wisecube AI"></div>
+        <div class="logo-slide"><img src="https://raw.githubusercontent.com/qaconsul/qaconsul.github.io/master/baum.png" alt="Baum Realty"></div>
+        <div class="logo-slide"><img src="https://raw.githubusercontent.com/qaconsul/qaconsul.github.io/master/tot.png" alt="Token of Trust"></div>
+        <div class="logo-slide"><img src="https://raw.githubusercontent.com/qaconsul/qaconsul.github.io/master/ca.png" alt="CaseActive"></div>
+        <div class="logo-slide"><img src="https://raw.githubusercontent.com/qaconsul/qaconsul.github.io/master/met.png" alt="MetLife"></div>
+        <div class="logo-slide"><img src="https://raw.githubusercontent.com/qaconsul/qaconsul.github.io/master/rp.png" alt="RocketPhone AI"></div>
+        <div class="logo-slide"><img src="https://raw.githubusercontent.com/qaconsul/qaconsul.github.io/master/rul.png" alt="RiseUp Labs"></div>
+        <div class="logo-slide"><img src="https://raw.githubusercontent.com/qaconsul/qaconsul.github.io/master/silver.png" alt="Silver Mirror Facial Bar"></div>
+        <div class="logo-slide"><img src="https://raw.githubusercontent.com/qaconsul/qaconsul.github.io/master/Anova.png" alt="Anova Sports"></div>
+        <!-- Duplicate for infinite scroll -->
+        <div class="logo-slide"><img src="https://raw.githubusercontent.com/qaconsul/qaconsul.github.io/master/creativesims.png" alt="Creative Sims"></div>
+        <div class="logo-slide"><img src="https://raw.githubusercontent.com/qaconsul/qaconsul.github.io/master/PMI.png" alt="PMI"></div>
+        <div class="logo-slide"><img src="https://raw.githubusercontent.com/qaconsul/qaconsul.github.io/master/wisecube.png" alt="Wisecube AI"></div>
+        <div class="logo-slide"><img src="https://raw.githubusercontent.com/qaconsul/qaconsul.github.io/master/baum.png" alt="Baum Realty"></div>
+        <div class="logo-slide"><img src="https://raw.githubusercontent.com/qaconsul/qaconsul.github.io/master/tot.png" alt="Token of Trust"></div>
+        <div class="logo-slide"><img src="https://raw.githubusercontent.com/qaconsul/qaconsul.github.io/master/ca.png" alt="CaseActive"></div>
+        <div class="logo-slide"><img src="https://raw.githubusercontent.com/qaconsul/qaconsul.github.io/master/met.png" alt="MetLife"></div>
+        <div class="logo-slide"><img src="https://raw.githubusercontent.com/qaconsul/qaconsul.github.io/master/rp.png" alt="RocketPhone AI"></div>
+        <div class="logo-slide"><img src="https://raw.githubusercontent.com/qaconsul/qaconsul.github.io/master/rul.png" alt="RiseUp Labs"></div>
+        <div class="logo-slide"><img src="https://raw.githubusercontent.com/qaconsul/qaconsul.github.io/master/silver.png" alt="Silver Mirror Facial Bar"></div>
+        <div class="logo-slide"><img src="https://raw.githubusercontent.com/qaconsul/qaconsul.github.io/master/Anova.png" alt="Anova Sports"></div>
       </div>
     </div>
-</div>
-  
+  </section>
+
+  <!-- STATS -->
   <div class="stats-section">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-3 stat-item">
-          <span class="stat-number">50+</span>
-          <p>Projects Delivered</p>
-        </div>
-        <div class="col-md-3 stat-item">
-          <span class="stat-number">98%</span>
-          <p>Bug Detection Rate</p>
-        </div>
-        <div class="col-md-3 stat-item">
-          <span class="stat-number">60%</span>
-          <p>Faster Testing</p>
-        </div>
-        <div class="col-md-3 stat-item">
-          <span class="stat-number">30+</span>
-          <p>Happy Clients</p>
-        </div>
+    <div class="stats-grid">
+      <div class="stat-item">
+        <span class="stat-number">50+</span>
+        <span class="stat-label">Projects Delivered</span>
       </div>
-    </div>
-  </div>
- 
-  <div class="container my-5 py-5" id="services">
-    <h2 class="text-center section-title">Our Comprehensive Testing Services</h2>
-    
-    <div class="text-center mb-5">
-      <span class="nft-badge">Functional Testing</span>
-    </div>
-    
-    <div class="row">
-      <div class="col-md-4 mb-4">
-        <div class="card service-card">
-          <div class="card-body text-center">
-            <div class="service-icon">🤖</div>
-            <h5 class="card-title font-weight-bold">AI-Driven Automated Testing</h5>
-            <p class="card-text">Leverage machine learning algorithms for intelligent test case generation, self-healing test scripts, and predictive defect analysis.</p>
-          </div>
-        </div>
+      <div class="stat-item">
+        <span class="stat-number">98%</span>
+        <span class="stat-label">Bug Detection Rate</span>
       </div>
-      <div class="col-md-4 mb-4">
-        <div class="card service-card">
-          <div class="card-body text-center">
-            <div class="service-icon">👁️</div>
-            <h5 class="card-title font-weight-bold">Manual & Exploratory Testing</h5>
-            <p class="card-text">Expert human testers identify edge cases and usability issues that automated tools might miss, ensuring comprehensive coverage.</p>
-          </div>
-        </div>
+      <div class="stat-item">
+        <span class="stat-number">60%</span>
+        <span class="stat-label">Faster Testing</span>
       </div>
-      <div class="col-md-4 mb-4">
-        <div class="card service-card">
-          <div class="card-body text-center">
-            <div class="service-icon">🔄</div>
-            <h5 class="card-title font-weight-bold">Regression Testing</h5>
-            <p class="card-text">Ensure new changes don't break existing functionality with intelligent test selection and continuous validation.</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4 mb-4">
-        <div class="card service-card">
-          <div class="card-body text-center">
-            <div class="service-icon">📱</div>
-            <h5 class="card-title font-weight-bold">Mobile & Cross-Platform Testing</h5>
-            <p class="card-text">Comprehensive testing across devices, OS versions, and screen sizes with automated compatibility checks.</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4 mb-4">
-        <div class="card service-card">
-          <div class="card-body text-center">
-            <div class="service-icon">🔗</div>
-            <h5 class="card-title font-weight-bold">API & Integration Testing</h5>
-            <p class="card-text">Validate data exchange between systems, microservices, and third-party integrations with automated contract testing.</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4 mb-4">
-        <div class="card service-card">
-          <div class="card-body text-center">
-            <div class="service-icon">✨</div>
-            <h5 class="card-title font-weight-bold">Smoke & Sanity Testing</h5>
-            <p class="card-text">Quick validation to ensure critical functionalities work before deeper testing begins.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="text-center my-5">
-      <span class="nft-badge">Non-Functional Testing</span>
-    </div>
-
-    <div class="row">
-      <div class="col-md-4 mb-4">
-        <div class="card service-card">
-          <div class="card-body text-center">
-            <div class="service-icon">⚡</div>
-            <h5 class="card-title font-weight-bold">Performance Testing</h5>
-            <p class="card-text">Load, stress, spike, and endurance testing using AI-powered analytics to predict system behavior under varying conditions and identify bottlenecks.</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4 mb-4">
-        <div class="card service-card">
-          <div class="card-body text-center">
-            <div class="service-icon">🔒</div>
-            <h5 class="card-title font-weight-bold">Security Testing</h5>
-            <p class="card-text">Vulnerability scanning, penetration testing, security audits, and threat modeling to protect against SQL injection, XSS, and other cyber threats.</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4 mb-4">
-        <div class="card service-card">
-          <div class="card-body text-center">
-            <div class="service-icon">♿</div>
-            <h5 class="card-title font-weight-bold">Accessibility Testing</h5>
-            <p class="card-text">Ensure WCAG 2.1 AA/AAA compliance, screen reader compatibility, and inclusive design with AI-powered accessibility audits.</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4 mb-4">
-        <div class="card service-card">
-          <div class="card-body text-center">
-            <div class="service-icon">💎</div>
-            <h5 class="card-title font-weight-bold">Usability Testing</h5>
-            <p class="card-text">Evaluate user experience, interface design, navigation flow, and overall user satisfaction through real user testing and heatmap analysis.</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4 mb-4">
-        <div class="card service-card">
-          <div class="card-body text-center">
-            <div class="service-icon">🔧</div>
-            <h5 class="card-title font-weight-bold">Reliability & Stability Testing</h5>
-            <p class="card-text">Long-duration testing to identify memory leaks, resource exhaustion, and ensure system stability under continuous operation.</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4 mb-4">
-        <div class="card service-card">
-          <div class="card-body text-center">
-            <div class="service-icon">🌐</div>
-            <h5 class="card-title font-weight-bold">Compatibility Testing</h5>
-            <p class="card-text">Verify application works across different browsers, operating systems, devices, network conditions, and configurations.</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4 mb-4">
-        <div class="card service-card">
-          <div class="card-body text-center">
-            <div class="service-icon">🔄</div>
-            <h5 class="card-title font-weight-bold">Disaster Recovery Testing</h5>
-            <p class="card-text">Validate backup systems, failover mechanisms, and recovery procedures to ensure business continuity during outages.</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4 mb-4">
-        <div class="card service-card">
-          <div class="card-body text-center">
-            <div class="service-icon">📊</div>
-            <h5 class="card-title font-weight-bold">Scalability Testing</h5>
-            <p class="card-text">Assess system's ability to scale up or down based on user load, data volume, and transaction rates.</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4 mb-4">
-        <div class="card service-card">
-          <div class="card-body text-center">
-            <div class="service-icon">🌍</div>
-            <h5 class="card-title font-weight-bold">Localization Testing</h5>
-            <p class="card-text">Verify application adapts correctly to different languages, regions, cultures, date formats, and currency conventions.</p>
-          </div>
-        </div>
+      <div class="stat-item">
+        <span class="stat-number">30+</span>
+        <span class="stat-label">Happy Clients</span>
       </div>
     </div>
   </div>
 
-  <div class="container-fluid bg-light py-5" id="testing-levels">
-    <div class="container">
-      <h2 class="text-center section-title">Testing Levels & Methodologies</h2>
-      <p class="text-center mb-5 text-muted">Comprehensive quality assurance at every stage of development</p>
-      
-      <div class="testing-level">
-        <h4 class="font-weight-bold">🔬 Unit Testing <span class="badge-custom">Foundation Level</span></h4>
-        <p><strong>Purpose:</strong> Test individual components or functions in isolation to verify they work as expected.</p>
-        <p><strong>Scope:</strong> Individual methods, functions, classes, or modules tested independently from the rest of the system.</p>
-        <p><strong>AI Enhancement:</strong> Automated unit test generation using code analysis, intelligent assertion creation, and mutation testing to ensure test effectiveness.</p>
-        <p><strong>Tools:</strong> JUnit, NUnit, pytest, Mocha, Jest with AI test generators</p>
-      </div>
+  <!-- SERVICES -->
+  <section id="services">
+    <span class="section-label">What We Do</span>
+    <h2 class="section-title">Our Comprehensive Testing Services</h2>
+    <p class="section-subtitle">End-to-end QA coverage across every layer of your software</p>
 
-      <div class="testing-level">
-        <h4 class="font-weight-bold">🔗 Integration Testing <span class="badge-custom">Component Level</span></h4>
-        <p><strong>Purpose:</strong> Verify that different modules or services work together correctly and data flows properly between components.</p>
-        <p><strong>Scope:</strong> Interfaces between modules, API endpoints, database connections, and service-to-service communication.</p>
-        <p><strong>AI Enhancement:</strong> Smart integration path discovery, automatic mock generation, and anomaly detection in inter-service communication.</p>
-        <p><strong>Tools:</strong> Postman, SoapUI, TestNG, Rest-Assured with ML-powered API testing</p>
-      </div>
+    <div style="text-align:center; margin-bottom:32px;">
+      <span class="category-badge">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18"/></svg>
+        Functional Testing
+      </span>
+    </div>
 
-      <div class="testing-level">
-        <h4 class="font-weight-bold">🖥️ System Testing <span class="badge-custom">Application Level</span></h4>
-        <p><strong>Purpose:</strong> Test the complete integrated system to evaluate compliance with specified requirements.</p>
-        <p><strong>Scope:</strong> End-to-end testing of the entire application including all integrated components, both functional and non-functional aspects.</p>
-        <p><strong>Non-Functional Focus:</strong> Performance, security, usability, reliability, and compatibility testing are primarily conducted at this level.</p>
-        <p><strong>AI Enhancement:</strong> Intelligent test scenario generation, visual regression testing using computer vision, and predictive defect analysis.</p>
-        <p><strong>Tools:</strong> Selenium, Cypress, Playwright, JMeter, LoadRunner with AI visual validation</p>
+    <div class="cards-grid">
+      <div class="service-card">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2z"/><path d="M12 8v4l3 3"/></svg>
+        </div>
+        <h5>AI-Driven Automated Testing</h5>
+        <p>Leverage machine learning algorithms for intelligent test case generation, self-healing test scripts, and predictive defect analysis.</p>
       </div>
-
-      <div class="testing-level">
-        <h4 class="font-weight-bold">✅ Acceptance Testing (UAT) <span class="badge-custom">Business Level</span></h4>
-        <p><strong>Purpose:</strong> Validate that the system meets business requirements and is ready for deployment.</p>
-        <p><strong>Scope:</strong> Business workflows, user scenarios, and acceptance criteria defined by stakeholders.</p>
-        <p><strong>Types:</strong> Alpha testing (internal), Beta testing (external users), and Contract Acceptance Testing.</p>
-        <p><strong>AI Enhancement:</strong> Natural language processing to convert user stories into test cases, sentiment analysis on user feedback, and automated acceptance criteria validation.</p>
-        <p><strong>Tools:</strong> Cucumber, SpecFlow, Behave, FitNesse with NLP-powered BDD</p>
+      <div class="service-card">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        </div>
+        <h5>Manual &amp; Exploratory Testing</h5>
+        <p>Expert human testers identify edge cases and usability issues that automated tools might miss, ensuring comprehensive coverage.</p>
       </div>
-
-      <div class="testing-level">
-        <h4 class="font-weight-bold">🔄 Regression Testing <span class="badge-custom">Continuous</span></h4>
-        <p><strong>Purpose:</strong> Ensure that new code changes don't adversely affect existing functionality.</p>
-        <p><strong>Scope:</strong> Re-execution of previously passed test cases after code modifications, bug fixes, or enhancements.</p>
-        <p><strong>Strategy:</strong> Selective regression (test affected areas), progressive regression (test new and modified code), complete regression (full test suite).</p>
-        <p><strong>AI Enhancement:</strong> Intelligent test selection based on code changes, self-healing tests that adapt to UI changes, and risk-based test prioritization.</p>
-        <p><strong>Tools:</strong> Jenkins, GitLab CI/CD, CircleCI, GitHub Actions with ML-based test optimization</p>
+      <div class="service-card">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M3 21v-5h5"/></svg>
+        </div>
+        <h5>Regression Testing</h5>
+        <p>Ensure new changes don't break existing functionality with intelligent test selection and continuous validation.</p>
       </div>
-
-      <div class="testing-level">
-        <h4 class="font-weight-bold">🚀 Production Monitoring <span class="badge-custom">Post-Deployment</span></h4>
-        <p><strong>Purpose:</strong> Continuously monitor application performance and user experience in production environments.</p>
-        <p><strong>Scope:</strong> Real-time monitoring of system health, user behavior, performance metrics, and error tracking.</p>
-        <p><strong>Non-Functional Monitoring:</strong> Response times, resource utilization, uptime, security incidents, and user satisfaction metrics.</p>
-        <p><strong>AI Enhancement:</strong> Anomaly detection, predictive alerting, automated root cause analysis, and real-time performance optimization.</p>
-        <p><strong>Tools:</strong> Datadog, New Relic, Dynatrace, Grafana, Prometheus with AI-powered observability</p>
+      <div class="service-card">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><path d="M12 18h.01"/></svg>
+        </div>
+        <h5>Mobile &amp; Cross-Platform Testing</h5>
+        <p>Comprehensive testing across devices, OS versions, and screen sizes with automated compatibility checks.</p>
+      </div>
+      <div class="service-card">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+        </div>
+        <h5>API &amp; Integration Testing</h5>
+        <p>Validate data exchange between systems, microservices, and third-party integrations with automated contract testing.</p>
+      </div>
+      <div class="service-card">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <h5>Smoke &amp; Sanity Testing</h5>
+        <p>Quick validation to ensure critical functionalities work before deeper testing begins.</p>
       </div>
     </div>
-  </div>
 
-  <div class="container my-5 py-5" id="ai-solutions">
-    <h2 class="text-center section-title">AI-Powered QA Solutions</h2>
-    <p class="text-center mb-5 text-muted">Transforming software testing with artificial intelligence</p>
-    
-    <div class="row">
-      <div class="col-md-6">
-        <div class="ai-feature">
-          <h4 class="font-weight-bold">🧠 Intelligent Test Generation</h4>
-          <p>Our AI analyzes your application's codebase, user flows, and historical data to automatically generate comprehensive test cases that maximize coverage while minimizing redundancy.</p>
-          <ul>
-            <li>Automated test script creation from requirements</li>
-            <li>Smart test data generation</li>
-            <li>Optimal test path identification</li>
-          </ul>
+    <div style="text-align:center; margin:52px 0 32px;">
+      <span class="category-badge">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Non-Functional Testing
+      </span>
+    </div>
+
+    <div class="cards-grid">
+      <div class="service-card">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
         </div>
+        <h5>Performance Testing</h5>
+        <p>Load, stress, spike, and endurance testing using AI-powered analytics to predict system behavior under varying conditions and identify bottlenecks.</p>
       </div>
-      <div class="col-md-6">
-        <div class="ai-feature">
-          <h4 class="font-weight-bold">🔮 Predictive Defect Analysis</h4>
-          <p>Machine learning models trained on millions of bugs predict where defects are most likely to occur, allowing you to focus testing efforts on high-risk areas.</p>
-          <ul>
-            <li>Risk-based testing prioritization</li>
-            <li>Code quality predictions</li>
-            <li>Early warning system for potential issues</li>
-          </ul>
+      <div class="service-card">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
         </div>
+        <h5>Security Testing</h5>
+        <p>Vulnerability scanning, penetration testing, security audits, and threat modeling to protect against SQL injection, XSS, and other cyber threats.</p>
       </div>
-      <div class="col-md-6">
-        <div class="ai-feature">
-          <h4 class="font-weight-bold">🛠️ Self-Healing Test Automation</h4>
-          <p>Tests that automatically adapt to UI changes, reducing maintenance overhead by up to 70%. Our AI identifies element changes and updates test scripts in real-time.</p>
-          <ul>
-            <li>Dynamic locator strategies</li>
-            <li>Automatic script updates</li>
-            <li>Reduced test flakiness</li>
-          </ul>
+      <div class="service-card">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg>
         </div>
+        <h5>Accessibility Testing</h5>
+        <p>Ensure WCAG 2.1 AA/AAA compliance, screen reader compatibility, and inclusive design with AI-powered accessibility audits.</p>
       </div>
-      <div class="col-md-6">
-        <div class="ai-feature">
-          <h4 class="font-weight-bold">📊 Advanced Analytics & Reporting</h4>
-          <p>AI-driven insights transform raw test data into actionable intelligence with trend analysis, quality metrics prediction, and automated report generation.</p>
-          <ul>
-            <li>Real-time dashboards</li>
-            <li>Predictive quality metrics</li>
-            <li>Automated root cause analysis</li>
-          </ul>
+      <div class="service-card">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
         </div>
+        <h5>Usability Testing</h5>
+        <p>Evaluate user experience, interface design, navigation flow, and overall user satisfaction through real user testing and heatmap analysis.</p>
+      </div>
+      <div class="service-card">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+        </div>
+        <h5>Reliability &amp; Stability Testing</h5>
+        <p>Long-duration testing to identify memory leaks, resource exhaustion, and ensure system stability under continuous operation.</p>
+      </div>
+      <div class="service-card">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        </div>
+        <h5>Compatibility Testing</h5>
+        <p>Verify application works across different browsers, operating systems, devices, network conditions, and configurations.</p>
+      </div>
+      <div class="service-card">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        </div>
+        <h5>Disaster Recovery Testing</h5>
+        <p>Validate backup systems, failover mechanisms, and recovery procedures to ensure business continuity during outages.</p>
+      </div>
+      <div class="service-card">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <h5>Scalability Testing</h5>
+        <p>Assess system's ability to scale up or down based on user load, data volume, and transaction rates.</p>
+      </div>
+      <div class="service-card">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24"><path d="M5 8l6 6"/><path d="M4 14l6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="M22 22l-5-10-5 10"/><path d="M14 18h6"/></svg>
+        </div>
+        <h5>Localization Testing</h5>
+        <p>Verify application adapts correctly to different languages, regions, cultures, date formats, and currency conventions.</p>
       </div>
     </div>
-  </div>
+  </section>
 
+  <!-- TESTING LEVELS -->
+  <section class="levels-section" id="testing-levels">
+    <span class="section-label">Methodology</span>
+    <h2 class="section-title">Testing Levels &amp; Methodologies</h2>
+    <p class="section-subtitle">Comprehensive quality assurance at every stage of development</p>
 
-  <div class="container-fluid bg-light py-5" id="about">
-    <div class="container">
-      <h2 class="text-center section-title">About QAConsul</h2>
-      <div class="row align-items-center">
-        <div class="col-md-6">
-          <p class="lead">We are providers in AI-powered software quality assurance, combining cutting-edge technology with deep testing expertise to deliver unparalleled quality solutions.</p>
-          <p>Founded by seasoned QA professional, QAConsul has evolved from traditional testing methods to become a leader in intelligent, automated quality assurance. Our team of certified QA engineers, data scientists, and AI specialists work together to ensure your software meets the highest standards of quality, security, and performance.</p>
+    <div class="level-card">
+      <div class="level-header">
+        <div class="level-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
         </div>
-        <div class="col-md-6">
-          <h5 class="font-weight-bold mb-3">Why Choose QAConsul?</h5>
-          <ul class="list-unstyled">
-            <li class="mb-2">✓ <strong>AI-First Approach:</strong> Leveraging machine learning for smarter testing</li>
-            <li class="mb-2">✓ <strong>Comprehensive Coverage:</strong> All testing levels and methodologies</li>
-            <li class="mb-2">✓ <strong>Continuous Innovation:</strong> Constantly updating our tools and techniques</li>
-            <li class="mb-2">✓ <strong>Certified Experts:</strong> ISTQB, AWS, and AI/ML certified professionals</li>
-            <li class="mb-2">✓ <strong>Agile & DevOps Ready:</strong> Seamless CI/CD integration</li>
-            <li class="mb-2">✓ <strong>24/7 Support:</strong> Round-the-clock monitoring and assistance</li>
-          </ul>
+        <h4>Unit Testing</h4>
+        <span class="badge-pill">Foundation Level</span>
+      </div>
+      <p><strong>Purpose:</strong> Test individual components or functions in isolation to verify they work as expected.</p>
+      <p><strong>Scope:</strong> Individual methods, functions, classes, or modules tested independently from the rest of the system.</p>
+      <p><strong>AI Enhancement:</strong> Automated unit test generation using code analysis, intelligent assertion creation, and mutation testing to ensure test effectiveness.</p>
+      <p><strong>Tools:</strong> JUnit, NUnit, pytest, Mocha, Jest with AI test generators</p>
+    </div>
+
+    <div class="level-card">
+      <div class="level-header">
+        <div class="level-icon">
+          <svg viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
         </div>
+        <h4>Integration Testing</h4>
+        <span class="badge-pill">Component Level</span>
+      </div>
+      <p><strong>Purpose:</strong> Verify that different modules or services work together correctly and data flows properly between components.</p>
+      <p><strong>Scope:</strong> Interfaces between modules, API endpoints, database connections, and service-to-service communication.</p>
+      <p><strong>AI Enhancement:</strong> Smart integration path discovery, automatic mock generation, and anomaly detection in inter-service communication.</p>
+      <p><strong>Tools:</strong> Postman, SoapUI, TestNG, Rest-Assured with ML-powered API testing</p>
+    </div>
+
+    <div class="level-card">
+      <div class="level-header">
+        <div class="level-icon">
+          <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        </div>
+        <h4>System Testing</h4>
+        <span class="badge-pill">Application Level</span>
+      </div>
+      <p><strong>Purpose:</strong> Test the complete integrated system to evaluate compliance with specified requirements.</p>
+      <p><strong>Scope:</strong> End-to-end testing of the entire application including all integrated components, both functional and non-functional aspects.</p>
+      <p><strong>Non-Functional Focus:</strong> Performance, security, usability, reliability, and compatibility testing are primarily conducted at this level.</p>
+      <p><strong>AI Enhancement:</strong> Intelligent test scenario generation, visual regression testing using computer vision, and predictive defect analysis.</p>
+      <p><strong>Tools:</strong> Selenium, Cypress, Playwright, JMeter, LoadRunner with AI visual validation</p>
+    </div>
+
+    <div class="level-card">
+      <div class="level-header">
+        <div class="level-icon">
+          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <h4>Acceptance Testing (UAT)</h4>
+        <span class="badge-pill">Business Level</span>
+      </div>
+      <p><strong>Purpose:</strong> Validate that the system meets business requirements and is ready for deployment.</p>
+      <p><strong>Scope:</strong> Business workflows, user scenarios, and acceptance criteria defined by stakeholders.</p>
+      <p><strong>Types:</strong> Alpha testing (internal), Beta testing (external users), and Contract Acceptance Testing.</p>
+      <p><strong>AI Enhancement:</strong> Natural language processing to convert user stories into test cases, sentiment analysis on user feedback, and automated acceptance criteria validation.</p>
+      <p><strong>Tools:</strong> Cucumber, SpecFlow, Behave, FitNesse with NLP-powered BDD</p>
+    </div>
+
+    <div class="level-card">
+      <div class="level-header">
+        <div class="level-icon">
+          <svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M3 21v-5h5"/></svg>
+        </div>
+        <h4>Regression Testing</h4>
+        <span class="badge-pill">Continuous</span>
+      </div>
+      <p><strong>Purpose:</strong> Ensure that new code changes don't adversely affect existing functionality.</p>
+      <p><strong>Scope:</strong> Re-execution of previously passed test cases after code modifications, bug fixes, or enhancements.</p>
+      <p><strong>Strategy:</strong> Selective regression (test affected areas), progressive regression (test new and modified code), complete regression (full test suite).</p>
+      <p><strong>AI Enhancement:</strong> Intelligent test selection based on code changes, self-healing tests that adapt to UI changes, and risk-based test prioritization.</p>
+      <p><strong>Tools:</strong> Jenkins, GitLab CI/CD, CircleCI, GitHub Actions with ML-based test optimization</p>
+    </div>
+
+    <div class="level-card">
+      <div class="level-header">
+        <div class="level-icon">
+          <svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+        </div>
+        <h4>Production Monitoring</h4>
+        <span class="badge-pill">Post-Deployment</span>
+      </div>
+      <p><strong>Purpose:</strong> Continuously monitor application performance and user experience in production environments.</p>
+      <p><strong>Scope:</strong> Real-time monitoring of system health, user behavior, performance metrics, and error tracking.</p>
+      <p><strong>Non-Functional Monitoring:</strong> Response times, resource utilization, uptime, security incidents, and user satisfaction metrics.</p>
+      <p><strong>AI Enhancement:</strong> Anomaly detection, predictive alerting, automated root cause analysis, and real-time performance optimization.</p>
+      <p><strong>Tools:</strong> Datadog, New Relic, Dynatrace, Grafana, Prometheus with AI-powered observability</p>
+    </div>
+  </section>
+
+  <!-- AI SOLUTIONS -->
+  <section id="ai-solutions">
+    <span class="section-label">Innovation</span>
+    <h2 class="section-title">AI-Powered QA Solutions</h2>
+    <p class="section-subtitle">Transforming software testing with artificial intelligence</p>
+
+    <div class="ai-grid">
+      <div class="ai-card">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v1a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-1H2a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h1a7 7 0 0 1 7-7h1V5.73c-.6-.34-1-.99-1-1.73a2 2 0 0 1 2-2z"/></svg>
+        </div>
+        <h4>Intelligent Test Generation</h4>
+        <p>Our AI analyzes your application's codebase, user flows, and historical data to automatically generate comprehensive test cases that maximize coverage while minimizing redundancy.</p>
+        <ul>
+          <li>Automated test script creation from requirements</li>
+          <li>Smart test data generation</li>
+          <li>Optimal test path identification</li>
+        </ul>
+      </div>
+      <div class="ai-card">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24"><path d="M2 2l20 20"/><path d="M8.5 8.5A5 5 0 0 0 12 17a5 5 0 0 0 4.95-5.65"/><path d="M12 3a9 9 0 0 1 9 9"/><path d="M12 3a9 9 0 0 0-9 9 9 9 0 0 0 2.28 6.01"/></svg>
+        </div>
+        <h4>Predictive Defect Analysis</h4>
+        <p>Machine learning models trained on millions of bugs predict where defects are most likely to occur, allowing you to focus testing efforts on high-risk areas.</p>
+        <ul>
+          <li>Risk-based testing prioritization</li>
+          <li>Code quality predictions</li>
+          <li>Early warning system for potential issues</li>
+        </ul>
+      </div>
+      <div class="ai-card">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+        </div>
+        <h4>Self-Healing Test Automation</h4>
+        <p>Tests that automatically adapt to UI changes, reducing maintenance overhead by up to 70%. Our AI identifies element changes and updates test scripts in real-time.</p>
+        <ul>
+          <li>Dynamic locator strategies</li>
+          <li>Automatic script updates</li>
+          <li>Reduced test flakiness</li>
+        </ul>
+      </div>
+      <div class="ai-card">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        </div>
+        <h4>Advanced Analytics &amp; Reporting</h4>
+        <p>AI-driven insights transform raw test data into actionable intelligence with trend analysis, quality metrics prediction, and automated report generation.</p>
+        <ul>
+          <li>Real-time dashboards</li>
+          <li>Predictive quality metrics</li>
+          <li>Automated root cause analysis</li>
+        </ul>
       </div>
     </div>
-  </div>
+  </section>
 
-  <div class="container my-5 py-5" id="contact">
-    <h2 class="text-center section-title">Get in Touch</h2>
-    <div class="row justify-content-center">
-      <div class="col-md-8 text-center">
-        <p class="lead mb-4">Ready to elevate your software quality? Let's discuss how our AI-powered testing solutions can transform your development process.</p>
-        <div class="card shadow-lg border-0">
-          <div class="card-body p-5">
-            <h4 class="mb-4">Contact Information</h4>
-            <p class="h5 mb-3">📧 azim@qaconsul.com</p>
-            <p class="mb-3">📞 +8801732633274 (Bangladesh) | Available in <i class="fa-brands fa-whatsapp whatsapp-icon"></i></p>
-            <p class="mb-3"><i class="fa-regular fa-message"></i> +1 708 552 0784 (USA)</p>
-            <p class="mb-4">📍 Dhaka, Bangladesh | Remote Services Available</p>
-            <a href="mailto:qaconsul@gmail.com?subject=Schedule a Consultation&body=Hi, I would like to schedule a consultation to discuss your QA services." class="btn btn-primary cta-button">Schedule a Consultation</a>
-          </div>
-        </div>
+  <!-- ABOUT -->
+  <section class="about-section" id="about">
+    <span class="section-label">Who We Are</span>
+    <h2 class="section-title">About QAConsul</h2>
+    <div class="about-grid">
+      <div class="about-text">
+        <p class="lead-text">We are providers in AI-powered software quality assurance, combining cutting-edge technology with deep testing expertise to deliver unparalleled quality solutions.</p>
+        <p>Founded by seasoned QA professionals, QAConsul has evolved from traditional testing methods to become a leader in intelligent, automated quality assurance. Our team of certified QA engineers, data scientists, and AI specialists work together to ensure your software meets the highest standards of quality, security, and performance.</p>
+      </div>
+      <div>
+        <h5 style="font-size:1rem; font-weight:700; color:var(--navy); margin-bottom:4px;">Why Choose QAConsul?</h5>
+        <ul class="why-list">
+          <li>
+            <span class="check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
+            <span><strong>AI-First Approach:</strong> Leveraging machine learning for smarter testing</span>
+          </li>
+          <li>
+            <span class="check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
+            <span><strong>Comprehensive Coverage:</strong> All testing levels and methodologies</span>
+          </li>
+          <li>
+            <span class="check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
+            <span><strong>Continuous Innovation:</strong> Constantly updating our tools and techniques</span>
+          </li>
+          <li>
+            <span class="check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
+            <span><strong>Certified Experts:</strong> ISTQB, AWS, and AI/ML certified professionals</span>
+          </li>
+          <li>
+            <span class="check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
+            <span><strong>Agile &amp; DevOps Ready:</strong> Seamless CI/CD integration</span>
+          </li>
+          <li>
+            <span class="check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
+            <span><strong>24/7 Support:</strong> Round-the-clock monitoring and assistance</span>
+          </li>
+        </ul>
       </div>
     </div>
-  </div>
+  </section>
 
-  <footer class="text-center py-4" style="background: #000000; color: white;">
-    <div class="container">
-      <p class="mb-0">&copy; 2025 QAConsul. All rights reserved. | Ensuring Quality Through Innovation</p>
+  <!-- CONTACT -->
+  <section id="contact">
+    <span class="section-label">Get in Touch</span>
+    <h2 class="section-title">Contact Us</h2>
+    <p class="section-subtitle">Ready to elevate your software quality? Let's discuss how our AI-powered testing solutions can transform your development process.</p>
+
+    <div class="contact-card">
+      <h4>Contact Information</h4>
+
+      <div class="contact-item">
+        <div class="contact-icon">
+          <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </div>
+        <span>azim@qaconsul.com</span>
+      </div>
+
+      <div class="contact-item">
+        <div class="contact-icon">
+          <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.37a16 16 0 0 0 5.72 5.72l1.46-1.41a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        </div>
+        <span>+880 1732 633274 (Bangladesh) &nbsp;|&nbsp; WhatsApp available</span>
+      </div>
+
+      <div class="contact-item">
+        <div class="contact-icon">
+          <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        </div>
+        <span>+1 708 552 0784 (USA)</span>
+      </div>
+
+      <div class="contact-item" style="border-bottom: 1px solid var(--gray-border); margin-bottom: 28px;">
+        <div class="contact-icon">
+          <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
+        <span>Dhaka, Bangladesh &nbsp;|&nbsp; Remote Services Available</span>
+      </div>
+
+      <div style="text-align:center;">
+        <a href="mailto:qaconsul@gmail.com?subject=Schedule a Consultation&body=Hi, I would like to schedule a consultation to discuss your QA services." class="btn-primary">Schedule a Consultation</a>
+      </div>
     </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>&copy; 2026 QAConsul. All rights reserved. &nbsp;|&nbsp; Ensuring Quality Through Innovation</p>
   </footer>
 
-  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('navLinks');
+    hamburger.addEventListener('click', () => navLinks.classList.toggle('open'));
+    navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+  </script>
 </body>
+</html>
